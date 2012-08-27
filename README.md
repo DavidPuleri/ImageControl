@@ -29,31 +29,27 @@ bootstrap.php for a working example.
 2) How to use
 ---------------------------------
 
-use ImageControl\Load;
-use ImageControl\Format\Jpg;
+    
+    <?php
+    use ImageControl\Load;
+    use ImageControl\Format\Jpg;
 
-$loader = new Load('image-big-size.jpg');
+    $loader = new Load('image-big-size.jpg');
+    $loader->setKeepOriginal(false); 
 
+    $homepage = new Jpg();
+    $homepage->setWidth(567);
 
-### that will delete the original image once finished
-$loader->setKeepOriginal(false); 
+    $thumbnail = new Jpg();
+    $thumbnail->setHeight(157);
 
+    $loader->prepareThumbnail($homepage, 'image-homepage.jpg');
+    $loader->prepareThumbnail($thumbnail, 'image-thumb.jpg');
 
+    $loader->saveThumbnail();
 
-$homepage = new Jpg();
-$homepage->setWidth(567);
-
-$thumbnail = new Jpg();
-$thumbnail->setHeight(157);
-
-### You can define both width and height, but the ratio won't be kept.
-
-$loader->prepareThumbnail($homepage, 'image-homepage.jpg');
-$loader->prepareThumbnail($thumbnail, 'image-thumb.jpg');
-
-$loader->saveThumbnail();
-
-That's about it for now. Very simple to use. More to come. 
+You can define both width and height, but the ratio won't be kept.
+That's about it for now. Very simple to use. More to come :)
 
 
 3) Contribute
