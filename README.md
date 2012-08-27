@@ -35,7 +35,7 @@ use ImageControl\Format\Jpg;
 $loader = new Load('image-big-size.jpg');
 
 
-#that will delete the original image once finished
+### that will delete the original image once finished
 $loader->setKeepOriginal(false); 
 
 
@@ -46,7 +46,7 @@ $homepage->setWidth(567);
 $thumbnail = new Jpg();
 $thumbnail->setHeight(157);
 
-#You can define both width and height, but the ratio won't be kept.
+### You can define both width and height, but the ratio won't be kept.
 
 $loader->prepareThumbnail($homepage, 'image-homepage.jpg');
 $loader->prepareThumbnail($thumbnail, 'image-thumb.jpg');
