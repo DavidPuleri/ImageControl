@@ -40,7 +40,7 @@ class Load
 
     /**
      * Define if you want to keep the original on save
-     * @param type $status 
+     * @param type $status
      */
     public function setKeepOriginal($status)
     {
@@ -56,17 +56,17 @@ class Load
     }
 
     /**
-     * Make sure that the destination path is writable, unique. 
+     * Make sure that the destination path is writable, unique.
      * Create folder if required
      * Generate the thumbnail from it source and keep all of that within the object.
-     * 
+     *
      * @param Image $image
      * @param string $destination
      * @return \ImageControl\Load
-     * 
+     *
      * @throws ThumbnailAlreadyExistsException
      * @throws UnableToCreateFolderException
-     * @throws UnableToWriteToFolderException 
+     * @throws UnableToWriteToFolderException
      */
     public function prepareThumbnail(Image $image, $destination)
     {
@@ -83,21 +83,31 @@ class Load
         return $this;
     }
 
+    /**
+     * @param Image $image
+     * @return mixed
+     */
+    public function outputThumbnail(Image $image)
+    {
+        return $image->generateImageFromSource($this->imageSource)->getContent();
+    }
+
+
     public function getPreparedThumbnails()
     {
         return $this->thumbnails;
     }
 
     /**
-     * Save thumbnail to destination path. 
+     * Save thumbnail to destination path.
      * Delete the source if asked
-     * 
-     * @return boolean 
+     *
+     * @return boolean
      */
     public function saveThumbnails()
     {
         foreach ($this->thumbnails as $destinationPath => $image) {
-            
+
             $this->preparePath($destinationPath);
             $fo = fopen($destinationPath, 'w');
             fwrite($fo, $image->getContent());
@@ -117,7 +127,7 @@ class Load
         $dir = $pathInfo['dirname'];
         if (!is_dir($dir)) {
 
-            $dirCreated = @mkdir($dir);
+            $dirCreated = @mkdir($dir, 0755, true);
             if (!$dirCreated) {
                 throw new UnableToCreateFolderException('Unable to create folder ' . $dir);
             }
@@ -126,6 +136,11 @@ class Load
                 throw new UnableToWriteToFolderException('Unable to create folder ' . $dir);
             }
         }
+    }
+
+    public function output()
+    {
+        return $this->getImageSource()->getContent();
     }
 
 }

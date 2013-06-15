@@ -10,12 +10,21 @@ class Jpg extends Image
     /**
      * Generate an image from a source based on defined dimensions.
      * @param Image $image
-     * @return type 
+     * @return type
      */
     protected function createImage(Image $image)
     {
-
         $source = imagecreatefromjpeg($this->getPath());
+
+        if ($image->getWidth() > $this->getWidth()) {
+
+            ob_start();
+            imagejpeg($source, null, $this->quality);
+            $imageData = ob_get_contents();
+            ob_end_clean();
+            return $imageData;
+        }
+
 
         if (null === $image->getHeight()) {
             $height = ceil($image->getWidth() * $this->getHeight() / $this->getWidth());
@@ -37,5 +46,6 @@ class Jpg extends Image
 
         return $imageData;
     }
+
 
 }
