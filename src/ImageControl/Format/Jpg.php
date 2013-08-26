@@ -16,7 +16,7 @@ class Jpg extends Image
     {
         $source = imagecreatefromjpeg($this->getPath());
 
-        if ($image->getWidth() > $this->getWidth()) {
+        if ($image->getWidth() >= $this->getWidth()) {
 
             ob_start();
             imagejpeg($source, null, $this->quality);
