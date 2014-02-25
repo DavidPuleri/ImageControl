@@ -1,0 +1,15 @@
+{
+    "name": "ekinox/ogcnice-utils",
+    "type": "library",
+    "description": "Utilitaire partagé entre les différentes application ogcnice",
+    "keywords": [
+        "ImageControl"
+    ],
+    "homepage": "http://www.ogcnice.com/",
+    "require": {
+        "php": ">=5.4.x"
+    },
+    "autoload": {
+        "psr-0": { "Ekinox\\": "src/" }
+    }
+}
